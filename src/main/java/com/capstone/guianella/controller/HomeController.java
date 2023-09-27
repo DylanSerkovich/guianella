@@ -11,4 +11,9 @@ public class HomeController {
         return "record";
     }
 
+    @GetMapping("/home2")
+    public String goHome2() {
+        return "record";
+    }
+
 }

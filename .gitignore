@@ -1,5 +1,4 @@
 HELP.md
-target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -34,7 +33,6 @@ build/
 
 
 ### Maven y javaweb###
-target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -47,7 +45,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 ## ignoring target file
-target/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Maven,Java-Web
 
@@ -89,7 +86,6 @@ lib/
 manifest.yml
 out
 overridedb.*
-target
 .flattened-pom.xml
 secrets.yml
 .gradletasknamecache

@@ -96,3 +96,4 @@ secrets.yml
 .sts4-cache
 import.sql
 .application-dev.properties
+src/main/resources/application-dev.properties

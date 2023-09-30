@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.capstone.guianella.entity.RolEntity;
@@ -26,13 +27,19 @@ public class UserService {
     @Autowired
     private RolMySQLReporsitory rolMySQLReporsitory;
 
+    private String PasswordEncode(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(password);
+        return encodedPassword;
+    }
+
     public void createUser(UserCreate userCreate) {
         RolEntity rol = rolMySQLReporsitory.findByName("EMPLEADOS");
         Set<RolEntity> roles = new HashSet<>();
         roles.add(rol);
         String pass = RandomString.make(10);
         userRepositoryImpl.save(UserEntity.builder().email(userCreate.getEmail()).username(userCreate.getUsername())
-                .password(pass).enable(true).resetPasswordToken(null).roles(roles).build());
+                .password(PasswordEncode(pass)).enable(true).resetPasswordToken(null).roles(roles).build());
     }
 
     public List<UserEntity> listUsers(String rol) {

@@ -7,6 +7,8 @@ import com.capstone.guianella.entity.UserEntity;
 public interface UserRepository {
     void save(UserEntity user);
 
+    UserEntity findByEmail(String email, Boolean enable);
+
     List<UserEntity> findAllNotRol(String rol);
 
     List<UserEntity> findAll();

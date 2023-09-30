@@ -34,4 +34,10 @@ public class UserRepositoryImpl implements UserRepository {
         return userRepository.findAllNotRole(rol);
     }
 
+    @Override
+    public UserEntity findByEmail(String email, Boolean enable) {
+        Optional<UserEntity> usuarioOptional = userRepository.findByEmailAndEnable(email, enable);
+        return usuarioOptional.orElse(null);
+    }
+
 }

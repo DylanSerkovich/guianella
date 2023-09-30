@@ -1,19 +1,25 @@
 package com.capstone.guianella.controller;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String goHome() {
-        return "record";
+        return "index";
     }
 
-    @GetMapping("/home2")
-    public String goHome2() {
-        return "record";
+    @GetMapping("/login")
+    public String LoginCliente() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        }
+        return "redirect:/";
     }
-
 }

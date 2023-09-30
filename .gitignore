@@ -1,5 +1,4 @@
 HELP.md
-target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -34,7 +33,6 @@ build/
 
 
 ### Maven y javaweb###
-target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

@@ -59,7 +59,7 @@ public class ResetPasswordController {
         return "new_password_form";
     }
 
-    // ElderAdmin25#23
+    // ElderAdmin25#25
     @PostMapping("/new_password")
     public String ProcesoNewPassword(@RequestParam("password") String password,
             @RequestParam("token") String token, Model model, RedirectAttributes redirect) {

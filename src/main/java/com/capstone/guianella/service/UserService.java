@@ -62,6 +62,31 @@ public class UserService {
         }
     }
 
+    public void setResetPasswordToken(String token) throws UserNotFoundException {
+        UserEntity user = userRepositoryImpl.finByResetPasswordToken(token);
+        if (user == null) {
+            throw new UserNotFoundException("Token Invalido");
+        }
+    }
+
+    public void updatePassword(String token, String newPassword) throws UserNotFoundException {
+        UserEntity user = userRepositoryImpl.finByResetPasswordToken(token);
+        if (user == null) {
+            throw new UserNotFoundException("Token Invalido");
+        } else {
+            userRepositoryImpl.save(UserEntity.builder()
+                    .idUser(user.getIdUser())
+                    .username(user.getUsername())
+                    .email(user.getEmail())
+                    .password(PasswordEncode(newPassword))
+                    .enable(user.isEnable())
+                    .createDate(user.getCreateDate())
+                    .resetPasswordToken(null)
+                    .roles(user.getRoles())
+                    .build());
+        }
+    }
+
     private String PasswordEncode(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(password);

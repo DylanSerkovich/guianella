@@ -9,6 +9,8 @@ public interface UserRepository {
 
     UserEntity findByEmail(String email, Boolean enable);
 
+    UserEntity finByResetPasswordToken(String token);
+
     List<UserEntity> findAllNotRol(String rol);
 
     List<UserEntity> findAll();

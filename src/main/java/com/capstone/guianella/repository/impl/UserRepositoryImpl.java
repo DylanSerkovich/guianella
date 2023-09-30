@@ -40,4 +40,9 @@ public class UserRepositoryImpl implements UserRepository {
         return usuarioOptional.orElse(null);
     }
 
+    @Override
+    public UserEntity finByResetPasswordToken(String token) {
+        return userRepository.finByResetPasswordToken(token);
+    }
+
 }

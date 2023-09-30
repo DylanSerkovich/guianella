@@ -1,152 +1,170 @@
 <div id="layoutSidenav_nav" th:fragment="menu">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-        <div class="sb-sidenav-menu">
-            <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
-                <!-- th:classappend="${#httpServletRequest.requestURI == '/dashboard/home'} ? 'active' : ''" -->
-                <a class="nav-link" th:href="@{/dashboard/home}" >
-                    <div class="sb-nav-link-icon">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    Dashboard
-                </a>
-                <!-- th:classappend="${#httpServletRequest.requestURI == '/dashboard/listarUsuario' || #httpServletRequest.requestURI == '/dashboard/listarClientes' || #httpServletRequest.requestURI == '/dashboard/listarProfesores' || #httpServletRequest.requestURI == '/dashboard/inscripciones' } ? '' : 'collapsed'" -->
-                <div class="sb-sidenav-menu-heading">Interfaces</div>
-                <a
-                        class="nav-link"
-                        href="#"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseLayouts"
-                        aria-expanded="false"
-                        aria-controls="collapseLayouts"
-                >
-                    <div class="sb-nav-link-icon">
-                        <i class="fa-solid fa-user-group"></i>
-                    </div>
-                    Usuario
-                    <div class="sb-sidenav-collapse-arrow">
-                        <i class="fas fa-angle-down"></i>
-                    </div>
-                </a>
-                <!-- th:classappend="${#httpServletRequest.requestURI == '/dashboard/listarUsuario' || #httpServletRequest.requestURI == '/dashboard/listarClientes' || #httpServletRequest.requestURI == '/dashboard/listarProfesores' || #httpServletRequest.requestURI == '/dashboard/inscripciones'} ? 'show' : ''" -->
-                <div
-                        class="collapse"
-                        id="collapseLayouts"
-                        aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordion"
-                >
-                <!-- th:classappend="${#httpServletRequest.requestURI == '/dashboard/listarUsuario'} ? 'active' : ''" -->
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link"
-                           th:href="@{/dashboard/listarUsuario}"
-                        >Usuarios</a
-                        >
-                        <!-- th:classappend="${#httpServletRequest.requestURI == '/dashboard/listarClientes'} ? 'active' : ''" -->
-                        <!-- <a class="nav-link" th:href="@{/dashboard/listarClientes}"
-                        >Clientes</a
-                        > -->
-                        <!-- th:classappend="${#httpServletRequest.requestURI == '/dashboard/listarProfesores'} ? 'active' : ''" -->
-                        <!-- <a class="nav-link" th:href="@{/dashboard/listarProfesores}"
-                        >Docentes</a
-                        > -->
-                        <!-- th:classappend="${#httpServletRequest.requestURI == '/dashboard/inscripciones'} ? 'active' : ''" -->
-                        <!-- <a class="nav-link" th:href="@{/dashboard/inscripciones}"
-                        >Inscripciones</a
-                        > -->
-                    </nav>
-                </div>
-                <a
-                        class="nav-link collapsed"
-                        href="#"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapsePages"
-                        aria-expanded="false"
-                        aria-controls="collapsePages"
-                >
-                    <div class="sb-nav-link-icon">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    Inversion
-                    <div class="sb-sidenav-collapse-arrow">
-                        <i class="fas fa-angle-down"></i>
-                    </div>
-                </a>
-                <div
-                        class="collapse"
-                        id="collapsePages"
-                        aria-labelledby="headingTwo"
-                        data-bs-parent="#sidenavAccordion"
-                >
-                    <nav
-                            class="sb-sidenav-menu-nested nav accordion"
-                            id="sidenavAccordionPages"
-                    >
-                        <a
-                                class="nav-link collapsed"
-                                href="#"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#pagesCollapseAuth"
-                                aria-expanded="false"
-                                aria-controls="pagesCollapseAuth"
-                        >
-                            Inversiones
-                            <div class="sb-sidenav-collapse-arrow">
-                                <i class="fas fa-angle-down"></i>
-                            </div>
-                        </a>
-                        <div
-                                class="collapse"
-                                id="pagesCollapseAuth"
-                                aria-labelledby="headingOne"
-                                data-bs-parent="#sidenavAccordionPages"
-                        >
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" th:href="@{/dashboard/listarCursos}">Inversion</a>
-                                <a class="nav-link" href="register.html">Produccion</a>
-                                
-                            </nav>
-                        </div>
-                        <a
-                                class="nav-link collapsed"
-                                href="#"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#pagesCollapseError"
-                                aria-expanded="false"
-                                aria-controls="pagesCollapseError"
-                        >
-                            Tipos
-                            <div class="sb-sidenav-collapse-arrow">
-                                <i class="fas fa-angle-down"></i>
-                            </div>
-                        </a>
-                        <div
-                                class="collapse"
-                                id="pagesCollapseError"
-                                aria-labelledby="headingOne"
-                                data-bs-parent="#sidenavAccordionPages"
-                        >
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" th:href="@{/dashboard/Categorias}">Categoria</a>
-                            </nav>
-                        </div>
-                    </nav>
-                </div>
-                <div class="sb-sidenav-menu-heading">Addons</div>
-                <a class="nav-link" href="charts.html">
-                    <div class="sb-nav-link-icon">
-                        <i class="fas fa-chart-area"></i>
-                    </div>
-                    Charts
-                </a>
-                <a class="nav-link" href="tables.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables
-                </a>
+  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+      <div class="nav">
+        <div class="sb-sidenav-menu-heading">Core</div>
+        <a class="nav-link" th:href="@{/}">
+          <div class="sb-nav-link-icon">
+            <i class="fas fa-tachometer-alt"></i>
+          </div>
+          Dashboard
+        </a>
+        <div class="sb-sidenav-menu-heading">Sección Libre</div>
+        <a class="nav-link" th:href="@{/estimacion}">
+          <div class="sb-nav-link-icon">
+            <i class="fas fa-tachometer-alt"></i>
+          </div>
+          Estimación Beneficios
+        </a>
+        <div class="sb-sidenav-menu-heading">Interface</div>
+        <a
+          class="nav-link collapsed"
+          href="#"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseLayouts"
+          aria-expanded="false"
+          aria-controls="collapseLayouts"
+        >
+          <div class="sb-nav-link-icon">
+            <i class="fas fa-columns"></i>
+          </div>
+          Movimientos
+          <div class="sb-sidenav-collapse-arrow">
+            <i class="fas fa-angle-down"></i>
+          </div>
+        </a>
+        <div
+          class="collapse"
+          id="collapseLayouts"
+          aria-labelledby="headingOne"
+          data-bs-parent="#sidenavAccordion"
+        >
+          <nav class="sb-sidenav-menu-nested nav">
+            <a class="nav-link" href="layout-static.html">Inversión</a>
+            <a class="nav-link" href="layout-sidenav-light.html">Producción</a>
+          </nav>
+        </div>
+        <a
+          class="nav-link collapsed"
+          href="#"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseUsers"
+          aria-expanded="false"
+          aria-controls="collapseUsers"
+        >
+          <div class="sb-nav-link-icon">
+            <i class="fas fa-columns"></i>
+          </div>
+          Usuarios
+          <div class="sb-sidenav-collapse-arrow">
+            <i class="fas fa-angle-down"></i>
+          </div>
+        </a>
+        <div
+          class="collapse"
+          id="collapseUsers"
+          aria-labelledby="headingOne"
+          data-bs-parent="#sidenavAccordion"
+        >
+          <nav class="sb-sidenav-menu-nested nav">
+            <a class="nav-link" href="layout-static.html">Inversores</a>
+            <a class="nav-link" href="layout-sidenav-light.html">Empleados</a>
+          </nav>
+        </div>
+        <a
+          class="nav-link collapsed"
+          href="#"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapsePages"
+          aria-expanded="false"
+          aria-controls="collapsePages"
+        >
+          <div class="sb-nav-link-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          Pages
+          <div class="sb-sidenav-collapse-arrow">
+            <i class="fas fa-angle-down"></i>
+          </div>
+        </a>
+        <div
+          class="collapse"
+          id="collapsePages"
+          aria-labelledby="headingTwo"
+          data-bs-parent="#sidenavAccordion"
+        >
+          <nav
+            class="sb-sidenav-menu-nested nav accordion"
+            id="sidenavAccordionPages"
+          >
+            <a
+              class="nav-link collapsed"
+              href="#"
+              data-bs-toggle="collapse"
+              data-bs-target="#pagesCollapseAuth"
+              aria-expanded="false"
+              aria-controls="pagesCollapseAuth"
+            >
+              Authentication
+              <div class="sb-sidenav-collapse-arrow">
+                <i class="fas fa-angle-down"></i>
+              </div>
+            </a>
+            <div
+              class="collapse"
+              id="pagesCollapseAuth"
+              aria-labelledby="headingOne"
+              data-bs-parent="#sidenavAccordionPages"
+            >
+              <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" href="login.html">Login</a>
+                <a class="nav-link" href="register.html">Register</a>
+                <a class="nav-link" href="password.html">Forgot Password</a>
+              </nav>
             </div>
+            <a
+              class="nav-link collapsed"
+              href="#"
+              data-bs-toggle="collapse"
+              data-bs-target="#pagesCollapseError"
+              aria-expanded="false"
+              aria-controls="pagesCollapseError"
+            >
+              Error
+              <div class="sb-sidenav-collapse-arrow">
+                <i class="fas fa-angle-down"></i>
+              </div>
+            </a>
+            <div
+              class="collapse"
+              id="pagesCollapseError"
+              aria-labelledby="headingOne"
+              data-bs-parent="#sidenavAccordionPages"
+            >
+              <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" href="401.html">401 Page</a>
+                <a class="nav-link" href="404.html">404 Page</a>
+                <a class="nav-link" href="500.html">500 Page</a>
+              </nav>
+            </div>
+          </nav>
         </div>
-        <div class="sb-sidenav-footer">
-            <div class="small">Logged in as:</div>
-            <!-- <th:block sec:authentication="principal.fullName">Start Bootstrap</th:block> -->
-        </div>
-    </nav>
+        <div class="sb-sidenav-menu-heading">Addons</div>
+        <a class="nav-link" href="charts.html">
+          <div class="sb-nav-link-icon">
+            <i class="fas fa-chart-area"></i>
+          </div>
+          Charts
+        </a>
+        <a class="nav-link" href="tables.html">
+          <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+          Tables
+        </a>
+      </div>
+    </div>
+    <div class="sb-sidenav-footer">
+      <div class="small">Logged in as:</div>
+      Start Bootstrap
+    </div>
+  </nav>
 </div>

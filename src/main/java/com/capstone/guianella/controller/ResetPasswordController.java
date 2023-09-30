@@ -46,4 +46,33 @@ public class ResetPasswordController {
         return "redirect:password";
     }
 
+    @GetMapping("/new_password")
+    public String NewPassword(@Param(value = "token") String token, Model model) {
+        try {
+            userService.setResetPasswordToken(token);
+            model.addAttribute("token", token);
+        } catch (UserNotFoundException e) {
+            model.addAttribute("title", "Error en Restablecer Contraseña");
+            model.addAttribute("mensaje", e.getMessage());
+            return "mensaje";
+        }
+        return "new_password_form";
+    }
+
+    // ElderAdmin25#23
+    @PostMapping("/new_password")
+    public String ProcesoNewPassword(@RequestParam("password") String password,
+            @RequestParam("token") String token, Model model, RedirectAttributes redirect) {
+
+        try {
+            userService.updatePassword(token, password);
+            redirect.addFlashAttribute("flag", "passwordRest");
+            return "redirect:/login";
+        } catch (UserNotFoundException e) {
+            model.addAttribute("title", "Error en Restablecer Contraseña");
+            model.addAttribute("mensaje", e.getMessage());
+            return "mensaje";
+        }
+    }
+
 }

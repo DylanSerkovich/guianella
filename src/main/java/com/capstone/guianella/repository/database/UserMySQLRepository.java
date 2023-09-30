@@ -12,6 +12,8 @@ public interface UserMySQLRepository extends JpaRepository<UserEntity, Integer> 
 
     Optional<UserEntity> findByUsername(String username);
 
+    Optional<UserEntity> findByEmailAndEnable(String email, boolean enable);
+
     @Query(value = "SELECT u.* FROM user u " +
             "INNER JOIN user_rol ur ON u.id_user = ur.id_user " +
             "INNER JOIN rol r ON ur.rol_id = r.rol_id " +

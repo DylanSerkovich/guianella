@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>Login - GUIANELLA</title>
-    <th:block th:replace="fragments/head :: baseContent"></th:block>
+    <th:block th:replace="~{@{/fragments/head } :: baseContent}"></th:block>
   </head>
   <body style="background-color: #433733 !important">
     <div id="layoutAuthentication">
@@ -94,7 +94,7 @@
         </main>
       </div>
       <div id="layoutAuthentication_footer">
-        <footer th:replace="@{/fragments/footer} :: footer"></footer>
+        <footer th:replace="~{@{/fragments/footer} :: footer}"></footer>
       </div>
     </div>
     <script

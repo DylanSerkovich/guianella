@@ -97,3 +97,4 @@ import.sql
 src/main/resources/application-dev.properties
 Dockerfile
 target/
+target/classes/application-dev.properties

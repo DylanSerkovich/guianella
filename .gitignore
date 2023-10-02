@@ -1,4 +1,5 @@
 HELP.md
+target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -46,7 +47,6 @@ buildNumber.properties
 
 ## ignoring target file
 target
-target/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Maven,Java-Web
 

@@ -1,4 +1,5 @@
 HELP.md
+target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -50,6 +51,7 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 ## ignoring target file
+
 target/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Maven,Java-Web
@@ -99,3 +101,6 @@ secrets.yml
 import.sql
 .application-dev.properties
 src/main/resources/application-dev.properties
+Dockerfile
+target/
+target/classes/application-dev.properties

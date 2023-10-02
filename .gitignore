@@ -99,3 +99,4 @@ import.sql
 .application-dev.properties
 src/main/resources/application-dev.properties
 target/classes/application-dev.properties
+target/classes/application.properties

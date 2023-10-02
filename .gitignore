@@ -50,6 +50,7 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 ## ignoring target file
+target/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Maven,Java-Web
 

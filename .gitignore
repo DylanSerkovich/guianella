@@ -34,6 +34,8 @@ build/
 .env
 
 
+target
+
 ### Maven y javaweb###
 target/
 pom.xml.tag
@@ -96,3 +98,4 @@ secrets.yml
 import.sql
 .application-dev.properties
 src/main/resources/application-dev.properties
+target/classes/application-dev.properties

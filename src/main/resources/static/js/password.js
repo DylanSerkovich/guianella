@@ -1,7 +1,7 @@
 var password = document.getElementById("password")
   , confirm_password = document.getElementById("confirmPassword");
 
-document.getElementById('signupLogo').src = "https://s3-us-west-2.amazonaws.com/shipsy-public-assets/shipsy/SHIPSY_LOGO_BIRD_BLUE.png";
+document.getElementById('signupLogo').src = "https://res.cloudinary.com/dolhmjhkc/image/upload/v1696020499/Guianella/logo_Guianella_ovognc.png";
 enableSubmitButton();
 
 function validatePassword() {

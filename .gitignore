@@ -93,3 +93,5 @@ secrets.yml
 import.sql
 .application-dev.properties
 src/main/resources/application-dev.properties
+Dockerfile
+target/

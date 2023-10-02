@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+target/
 
 ### STS ###
 .apt_generated
@@ -31,9 +32,13 @@ build/
 
 ### VS Code ###
 .vscode/
+.env
 
+
+target
 
 ### Maven y javaweb###
+target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -46,7 +51,8 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 ## ignoring target file
-target
+
+target/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Maven,Java-Web
 

@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.http.MediaType;
 
 import com.capstone.guianella.model.dto.UserCreate;
+import com.capstone.guianella.model.response.ResponseUserCreate;
+import com.capstone.guianella.repository.impl.UserRepositoryImpl;
 // import com.capstone.guianella.service.UserService;
 import com.capstone.guianella.service.UserService;
 
@@ -19,6 +23,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepositoryImpl userRepositoryImpl;
+
     @GetMapping
     public String users(Model model) {
         model.addAttribute("users", userService.listUsers("ADMIN"));
@@ -28,14 +35,28 @@ public class UserController {
         return "usuarios";
     }
 
-    @PostMapping("/usuario")
-    public String Adduser(@ModelAttribute() UserCreate userCreate) {
+    // @PostMapping("/usuario")
+    // public String Adduser(@ModelAttribute() UserCreate userCreate) {
+    // System.out.println("user: ");
+    // System.out.println(userCreate);
+
+    // // System.out.println(userCreate.toString());
+    // userService.createUser(userCreate);
+    // return "redirect:/usuarios";
+    // }
+    @PostMapping(value = "/usuario", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ResponseBody
+    public ResponseUserCreate Adduser(@ModelAttribute UserCreate userCreate) {
         System.out.println("user: ");
         System.out.println(userCreate);
-
-        // System.out.println(userCreate.toString());
-        userService.createUser(userCreate);
-        return "redirect:/usuarios";
+        ResponseUserCreate responseUserCreate = new ResponseUserCreate();
+        if (userRepositoryImpl.findByEmailOrUsername(userCreate.getEmail(), userCreate.getUsername()) == null) {
+            responseUserCreate.setExists(false);
+            userService.createUser(userCreate);
+        } else {
+            responseUserCreate.setExists(true);
+        }
+        return responseUserCreate;
     }
 
 }

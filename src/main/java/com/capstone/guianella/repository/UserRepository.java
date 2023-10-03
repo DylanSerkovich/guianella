@@ -15,5 +15,7 @@ public interface UserRepository {
 
     List<UserEntity> findAll();
 
+    UserEntity findByEmailOrUsername(String email, String username);
+
     // Employee findByUsername(String username);
 }

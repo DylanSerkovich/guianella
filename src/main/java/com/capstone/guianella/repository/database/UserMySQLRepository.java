@@ -14,6 +14,9 @@ public interface UserMySQLRepository extends JpaRepository<UserEntity, Integer> 
 
     Optional<UserEntity> findByEmailAndEnable(String email, boolean enable);
 
+    @Query(value = "SELECT * FROM user WHERE LOWER(email) = LOWER(?1) OR username =?2 LIMIT 1", nativeQuery = true)
+    Optional<UserEntity> findByEmailOrUsername(String email, String username);
+
     @Query(value = "SELECT * FROM user WHERE reset_password_token = ?1", nativeQuery = true)
     public UserEntity finByResetPasswordToken(String token);
 

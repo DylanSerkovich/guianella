@@ -96,7 +96,8 @@ public class UserService {
         return encodedPassword;
     }
 
-    public void createUser(UserCreate userCreate) {
+    public void createUser(UserCreate userCreate, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
         Optional<RolEntity> targetRolOptional = rolMySQLReporsitory.findAllNotAdmin().stream()
                 .filter(rol -> rol.getRolId() == (Integer.parseInt(userCreate.getIdRol())))
                 .findFirst();
@@ -105,12 +106,23 @@ public class UserService {
         roles.add(targetRol);
         String pass = RandomString.make(10);
         String token = RandomString.make(30);
+        sendChangePassword(userCreate.getUsername(), userCreate.getEmail(), token, request);
         userRepositoryImpl.save(UserEntity.builder().email(userCreate.getEmail()).username(userCreate.getUsername())
                 .firstName(userCreate.getFirstname())
                 .lastName(userCreate.getLastname())
                 .locked(true)
                 .password(PasswordEncode(pass)).enable(userCreate.getEnable()).resetPasswordToken(token).roles(roles)
                 .build());
+    }
+
+    private void sendChangePassword(String username, String email, String token, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
+        String LinkResetPass = URL.getSiteURL(request) + "/password/new_password?token=" + token;
+
+        String requestUrl = URL.getSiteURL(request);
+
+        mailService.SendChangePassEmail(username, email, requestUrl, LinkResetPass);
+
     }
 
     public List<UserEntity> listUsers(String rol) {
@@ -127,5 +139,4 @@ public class UserService {
         return roles;
     }
 
-    
 }

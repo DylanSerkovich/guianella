@@ -1,5 +1,7 @@
 package com.capstone.guianella.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,9 @@ import com.capstone.guianella.model.response.ResponseUserCreate;
 import com.capstone.guianella.repository.impl.UserRepositoryImpl;
 // import com.capstone.guianella.service.UserService;
 import com.capstone.guianella.service.UserService;
+
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -46,13 +51,14 @@ public class UserController {
     // }
     @PostMapping(value = "/usuario", produces = { MediaType.APPLICATION_JSON_VALUE })
     @ResponseBody
-    public ResponseUserCreate Adduser(@ModelAttribute UserCreate userCreate) {
+    public ResponseUserCreate Adduser(@ModelAttribute UserCreate userCreate, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
         System.out.println("user: ");
         System.out.println(userCreate);
         ResponseUserCreate responseUserCreate = new ResponseUserCreate();
         if (userRepositoryImpl.findByEmailOrUsername(userCreate.getEmail(), userCreate.getUsername()) == null) {
             responseUserCreate.setExists(false);
-            userService.createUser(userCreate);
+            userService.createUser(userCreate, request);
         } else {
             responseUserCreate.setExists(true);
         }

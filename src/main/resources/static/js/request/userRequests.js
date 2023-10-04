@@ -41,3 +41,31 @@ $(function () {
     });
   });
   
+
+  $(document).ready(function () {
+    $("table input[type='checkbox']").change(function () {
+      //var id = $(this).closest("tr").attr("id").split("-")[1];
+      var id = $(this).attr("data-id");
+      
+      var valor = $(this).is(":checked");
+      $.ajax({
+        url: `/usuarios/${id}/estado`,
+        type: "PATCH",
+        data: {enabled:valor},
+        success: function (response) {
+          // Procesa la respuesta del servidor
+        },
+        error: function (xhr, status, error) {
+          if (xhr.status == 404) {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "No se ha encontrado el registro",
+            }).then(function () {
+              window.location.reload();
+            });
+          }
+        },
+      });
+    });
+  });

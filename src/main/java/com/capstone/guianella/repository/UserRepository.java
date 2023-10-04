@@ -2,6 +2,8 @@ package com.capstone.guianella.repository;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.capstone.guianella.entity.UserEntity;
 
 public interface UserRepository {
@@ -17,5 +19,6 @@ public interface UserRepository {
 
     UserEntity findByEmailOrUsername(String email, String username);
 
+    Boolean updateEnabledUser(boolean enable, int id);
     // Employee findByUsername(String username);
 }

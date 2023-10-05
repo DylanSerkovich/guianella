@@ -37,9 +37,15 @@ public class UserEntity {
 
     private String username;
 
+    private String firstName;
+
+    private String lastName;
+
     private String password;
 
     private boolean enable;
+
+    private boolean locked;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -61,7 +67,5 @@ public class UserEntity {
     private void onCreate() {
         createDate = new Date();
     }
-
-    
 
 }

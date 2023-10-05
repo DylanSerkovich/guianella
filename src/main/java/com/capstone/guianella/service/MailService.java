@@ -39,4 +39,24 @@ public class MailService {
         mailSender.send(message);
     }
 
+    @Async
+    public void SendChangePassEmail(String user, String email, String request, String url)
+            throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("enviacms123@gmail.com", "Soporte de Guianella");
+        helper.setTo(email);
+
+        String subject = "Aquí esta el enlace para restablecer contraseña";
+
+        String content = ContentMessage.resChangePassHTML(user, email, url, request);
+
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+        System.out.println("Se envio");
+        mailSender.send(message);
+    }
+
 }

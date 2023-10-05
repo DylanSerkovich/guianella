@@ -58,4 +58,17 @@ public class UserRepositoryImpl implements UserRepository {
         return (userRepository.updateEnabledUser(enable, id) > 0);
     }
 
+    @Override
+    public UserEntity findByid(int idUser) {
+        Optional<UserEntity> uOptional = userRepository.findById(idUser);
+        return uOptional.orElse(null);
+    }
+
+    @Override
+    public UserEntity existsByEmailOrUsernameAndDifferentId(String email, String username, int id) {
+        Optional<UserEntity> usOptional = userRepository.existsByEmailOrUsernameAndDifferentId(email, username, id);
+
+        return usOptional.orElse(null);
+    }
+
 }

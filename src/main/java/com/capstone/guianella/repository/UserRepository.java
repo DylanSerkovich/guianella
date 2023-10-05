@@ -19,6 +19,10 @@ public interface UserRepository {
 
     UserEntity findByEmailOrUsername(String email, String username);
 
+    UserEntity existsByEmailOrUsernameAndDifferentId(String email, String username, int id);
+
     Boolean updateEnabledUser(boolean enable, int id);
+
+    UserEntity findByid(int idUser);
     // Employee findByUsername(String username);
 }

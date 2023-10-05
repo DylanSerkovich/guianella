@@ -98,7 +98,7 @@ overridedb.*
 secrets.yml
 .gradletasknamecache
 .sts4-cache
-import.sql
+.import.sql
 .application-dev.properties
 src/main/resources/application-dev.properties
 Dockerfile

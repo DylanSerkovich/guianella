@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import com.capstone.guianella.model.dto.FindUser;
 import com.capstone.guianella.model.dto.UserCreate;
 import com.capstone.guianella.model.response.ResponseUserCreate;
 import com.capstone.guianella.repository.impl.UserRepositoryImpl;
@@ -69,6 +70,30 @@ public class UserController {
             responseUserCreate.setExists(true);
         }
         return responseUserCreate;
+    }
+
+    @GetMapping("/usuario")
+    public ResponseEntity<FindUser> findById(@RequestParam int user_id) {
+        System.out.println("Id= " + user_id);
+        // return ResponseEntity.ok().build();
+        return ResponseEntity.ok(userService.findUserById(user_id));
+    }
+
+    @PutMapping("/{id}/usuario")
+    public ResponseEntity<ResponseUserCreate> UpdateById(@PathVariable("id") int id,
+            @ModelAttribute UserCreate UpdateUser) {
+        System.out.println("Id_post= " + id);
+        System.out.println("user: " + UpdateUser.getEmail());
+        ResponseUserCreate responseUserCreate = new ResponseUserCreate();
+        // return ResponseEntity.ok().build();
+        if (userRepositoryImpl.existsByEmailOrUsernameAndDifferentId(UpdateUser.getEmail(), UpdateUser.getUsername(),
+                id) == null) {
+            responseUserCreate.setExists(false);
+            userService.updateUser(UpdateUser, id);
+        } else {
+            responseUserCreate.setExists(true);
+        }
+        return ResponseEntity.ok(responseUserCreate);
     }
 
     // @PreAuthorize("hasRole('ADMIN')")

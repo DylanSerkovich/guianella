@@ -148,8 +148,9 @@
                       </td>
                       <td>
                         <div class="btn-group w-100 h-100">
+                          <!-- th:href="@{/dashboard/editar(id_user=${user.idUser})}" -->
                           <a
-                            th:href="@{/dashboard/editar(id_user=${user.idUser})}"
+                            th:onclick="findRecord([[${user.idUser}]])"
                             class="btn btn-info btn-sm"
                             title="editar"
                           >
@@ -169,6 +170,134 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
+            </div>
+          </div>
+          <div
+            class="modal fade"
+            id="UpdateModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+          >
+            <div class="modal-dialog modal-lg shadow-light">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title fs-5" id="exampleModalLabel">
+                    Actualizar Usuario
+                  </h4>
+                  <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <form method="PUT" id="update_user">
+                  <div class="modal-body">
+                    <div id="update_account"></div>
+                    <div class="row g-3">
+                      <div class="form-floating mb-2 col-md-6">
+                        <input
+                          class="form-control"
+                          id="inputFirstName"
+                          type="text"
+                          name="firstname"
+                          required
+                          placeholder="Nombre"
+                        />
+                        <label for="inputFirstName" class="no-top"
+                          >Nombre</label
+                        >
+                      </div>
+                      <div class="form-floating mb-2 col-md-6">
+                        <input
+                          class="form-control"
+                          id="inputLastName"
+                          type="text"
+                          name="lastname"
+                          required
+                          placeholder="Nombre"
+                        />
+                        <label for="inputLastName" class="no-top"
+                          >Apellidos</label
+                        >
+                      </div>
+                      <div class="form-floating mb-2 col-md-6">
+                        <input
+                          class="form-control"
+                          id="inputName"
+                          type="text"
+                          name="username"
+                          required
+                          placeholder="Nombre"
+                        />
+                        <label for="inputName" class="no-top">Username</label>
+                      </div>
+                      <div class="form-floating mb-2 col-md-6">
+                        <input
+                          class="form-control"
+                          id="inputEmail"
+                          type="email"
+                          name="email"
+                          required
+                          placeholder="name@example.com"
+                        />
+                        <label for="inputEmail" class="no-top">Correo</label>
+                      </div>
+                      <div class="form-floating mb-2 col-md-6">
+                        <select
+                          id="roles"
+                          class="form-select"
+                          name="idRol"
+                          required="required"
+                        >
+                          <option selected hidden th:value="${''}">
+                            Elija un Rol
+                          </option>
+                          <option
+                            th:each="rol: ${rolesAdd}"
+                            th:value="${rol.rolId}"
+                            th:text="${rol.name}"
+                          >
+                            Curso 1
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-xl-6 mb-4 pb-2 d-flex align-items-center">
+                        <div class="form-check form-switch fs-5">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name="enable"
+                            id="flexSwitchCheckDefault"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="flexSwitchCheckDefault"
+                            >Habilitar</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer bg-light">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <input
+                      type="submit"
+                      class="btn btn-success"
+                      value="Actualizar"
+                    />
+                  </div>
+                </form>
               </div>
             </div>
           </div>

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.capstone.guianella.entity.RolEntity;
 import com.capstone.guianella.entity.UserEntity;
 import com.capstone.guianella.exception.UserNotFoundException;
+import com.capstone.guianella.model.dto.FindUser;
 import com.capstone.guianella.model.dto.Rol;
 import com.capstone.guianella.model.dto.UserCreate;
 import com.capstone.guianella.repository.database.RolMySQLReporsitory;
@@ -102,7 +103,8 @@ public class UserService {
     public void createUser(UserCreate userCreate, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException {
         Optional<RolEntity> targetRolOptional = rolMySQLReporsitory.findAllNotAdmin().stream()
-                .filter(rol -> rol.getRolId() == (Integer.parseInt(userCreate.getIdRol())))
+                .filter(rol -> rol
+                        .getRolId() == (userCreate.getIdRol() != null ? Integer.parseInt(userCreate.getIdRol()) : 9999))
                 .findFirst();
         RolEntity targetRol = targetRolOptional.orElse(rolMySQLReporsitory.findByName("EMPLEADOS"));
         Set<RolEntity> roles = new HashSet<>();
@@ -118,6 +120,32 @@ public class UserService {
                 .build());
     }
 
+    public void updateUser(UserCreate userCreate, int id) {
+        Optional<RolEntity> targetRolOptional = rolMySQLReporsitory.findAllNotAdmin().stream()
+                .filter(rol -> rol
+                        .getRolId() == (userCreate.getIdRol() != null ? Integer.parseInt(userCreate.getIdRol()) : 9999))
+                .findFirst();
+        RolEntity targetRol = targetRolOptional.orElse(rolMySQLReporsitory.findByName("EMPLEADOS"));
+        Set<RolEntity> roles = new HashSet<>();
+        roles.add(targetRol);
+
+        UserEntity userEntity = userRepositoryImpl.findByid(id);
+
+        userRepositoryImpl.save(UserEntity.builder()
+                .idUser(userEntity.getIdUser())
+                .email(userCreate.getEmail())
+                .username(userCreate.getUsername())
+                .firstName(userCreate.getFirstname())
+                .lastName(userCreate.getLastname())
+                .locked(userEntity.isLocked())
+                .password(userEntity.getPassword())
+                .enable(userCreate.getEnable())
+                .createDate(userEntity.getCreateDate())
+                .resetPasswordToken(userEntity.getResetPasswordToken())
+                .roles(roles)
+                .build());
+    }
+
     private void sendChangePassword(String username, String email, String token, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException {
         String LinkResetPass = URL.getSiteURL(request) + "/password/new_password?token=" + token;
@@ -130,6 +158,26 @@ public class UserService {
 
     public List<UserEntity> listUsers(String rol) {
         return userRepositoryImpl.findAllNotRol(rol);
+    }
+
+    public FindUser findUserById(int idUser) {
+
+        UserEntity userEntity = userRepositoryImpl.findByid(idUser);
+        Set<Rol> roles = userEntity.getRoles().stream()
+                .map(rolEntity -> new Rol(rolEntity.getRolId(), rolEntity.getName()))
+                .collect(Collectors.toSet());
+        if (userEntity != null) {
+            return FindUser.builder()
+                    .idUser(userEntity.getIdUser())
+                    .username(userEntity.getUsername())
+                    .firstname(userEntity.getFirstName())
+                    .lastname(userEntity.getLastName())
+                    .enable(userEntity.isEnable())
+                    .email(userEntity.getEmail())
+                    .roles(roles)
+                    .build();
+        }
+        return null;
     }
 
     public List<Rol> listOptionsRol() {

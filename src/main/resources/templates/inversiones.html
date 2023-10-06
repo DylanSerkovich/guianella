@@ -116,7 +116,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h4 class="modal-title fs-5" id="exampleModalLabel">
-                    Actualizar Usuario
+                    Ingresar Inversion
                   </h4>
                   <button
                     type="button"
@@ -125,7 +125,11 @@
                     aria-label="Close"
                   ></button>
                 </div>
-                <form method="PUT" id="update_user">
+                <form
+                  action="/inversiones/inversion"
+                  method="POST"
+                  id="crear_inversion"
+                >
                   <div class="modal-body">
                     <div id="update_account"></div>
                     <div class="row g-3">
@@ -134,7 +138,7 @@
                           class="form-control"
                           id="materialUnit"
                           type="text"
-                          name="firstname"
+                          name="unidad"
                           required
                           placeholder="Nombre"
                         />
@@ -223,10 +227,10 @@
     ></script>
     <!-- <script th:src="@{/admin/js/datatables-simple-demo.js}"></script> -->
     <script th:src="@{/js/datatables-demo.js}"></script>
-    <!-- <script
-      th:src="@{/js/request/userRequests.js}"
+    <script
+      th:src="@{/js/request/Investment.js}"
       type="text/javascript"
-    ></script> -->
+    ></script>
     <script>
       var emptyRow =
         "<tr><td colspan='6' class='text-center'> No Records Available</td></tr>";

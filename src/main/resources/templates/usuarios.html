@@ -77,7 +77,8 @@
                 >
                   <thead>
                     <tr>
-                      <th>USERNAME</th>
+                      <th>NOMBRES</th>
+                      <th>USUARIO</th>
                       <th>CORREO</th>
                       <th>REGISTRO FECHA</th>
                       <th>ROLES</th>
@@ -92,6 +93,7 @@
                   </thead>
                   <tfoot>
                     <tr>
+                      <th>NOMBRES</th>
                       <th>USERNAME</th>
                       <th>CORREO</th>
                       <th>REGISTRO FECHA</th>
@@ -107,9 +109,12 @@
                   </tfoot>
                   <tbody>
                     <tr th:each="user:${users}" th:id="'row-' + ${user.idUser}">
+                      <td th:text="${user.firstName} +' ' +${user.lastName}">
+                        Nombre
+                      </td>
                       <td th:text="${user.username}">Nombre Usuario</td>
                       <td th:text="${user.email}">Correo Usuario</td>
-                      <td th:text="${user.createDate}">Correo Usuario</td>
+                      <td th:text="${#dates.format(user.createDate, 'dd-MM-yyyy HH:mm')}">Correo Usuario</td>
                       <td>
                         <th:block th:if="${user.roles != null}">
                           <th:block th:each="rol : ${user.roles}">

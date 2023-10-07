@@ -1,9 +1,9 @@
 package com.capstone.guianella.repository.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.guianella.entity.UserEntity;
 
@@ -43,6 +43,32 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public UserEntity finByResetPasswordToken(String token) {
         return userRepository.finByResetPasswordToken(token);
+    }
+
+    @Override
+    public UserEntity findByEmailOrUsername(String email, String username) {
+        Optional<UserEntity> usOptional = userRepository.findByEmailOrUsername(email, username);
+
+        return usOptional.orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public Boolean updateEnabledUser(boolean enable, int id) {
+        return (userRepository.updateEnabledUser(enable, id) > 0);
+    }
+
+    @Override
+    public UserEntity findByid(int idUser) {
+        Optional<UserEntity> uOptional = userRepository.findById(idUser);
+        return uOptional.orElse(null);
+    }
+
+    @Override
+    public UserEntity existsByEmailOrUsernameAndDifferentId(String email, String username, int id) {
+        Optional<UserEntity> usOptional = userRepository.existsByEmailOrUsernameAndDifferentId(email, username, id);
+
+        return usOptional.orElse(null);
     }
 
 }

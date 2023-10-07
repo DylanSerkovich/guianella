@@ -32,7 +32,8 @@ public class ConfigAdmin {
         http.csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/", "/usuarios/**").hasAnyAuthority("ADMIN", "EMPLEADOS");
+                    auth.requestMatchers("/", "/usuarios/**").hasAnyAuthority("ADMIN", "EMPLEADOS", "INVERSORES");
+                    auth.requestMatchers("/inversiones/**").hasAnyAuthority("INVERSORES");
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(formLogin -> formLogin

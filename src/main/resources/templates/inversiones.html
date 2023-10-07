@@ -81,7 +81,6 @@
                       <th>INVERSOR</th>
                       <th>FECHA REG</th>
                       <th>GASTO/INV</th>
-                      <th>ENABLED</th>
                       <th>INGRESOS</th>
                       <th>GANANCIAS</th>
                     </tr>
@@ -92,12 +91,23 @@
                       <th>INVERSOR</th>
                       <th>FECHA REG</th>
                       <th>GASTO/INV</th>
-                      <th>ENABLED</th>
                       <th>INGRESOS</th>
                       <th>GANANCIAS</th>
                     </tr>
                   </tfoot>
-                  <tbody></tbody>
+                  <tbody>
+                    <tr
+                      th:each=" inversion: ${inversiones}"
+                      th:id="'row-' + ${inversion.idInversion}"
+                    >
+                      <td th:text="${inversion.idInversion}"></td>
+                      <td th:text="${inversion.nameInvestor}"></td>
+                      <td th:text="${inversion.dateRecord}"></td>
+                      <td>null</td>
+                      <td>null</td>
+                      <td>null</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>

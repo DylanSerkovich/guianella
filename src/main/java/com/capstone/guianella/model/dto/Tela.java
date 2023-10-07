@@ -6,7 +6,7 @@ import lombok.Data;
 public class Tela {
     private String tipo;
     private String color;
-    private String rendimiento;
-    private String cantidad;
+    private float rendimiento;
+    private float cantidad;
     private float costo;
 }

@@ -42,11 +42,11 @@ public class TelaEntity {
 
     private float rendimiento;
 
-    private int lot;
+    private float lot;
 
     private float cost;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_inversion", referencedColumnName = "id_inversion")
     private InversionEntity inversion;
 }

@@ -39,7 +39,8 @@ $(function () {
         type: "POST",
         data: JSON.stringify(inversion),
         success: function (res){
-
+          localStorage.setItem("Status", "¡Nueva Inversion Registrada!");
+          window.location.reload();
         }
       })
       

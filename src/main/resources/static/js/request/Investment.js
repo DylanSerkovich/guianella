@@ -4,7 +4,7 @@ $(function () {
       e.preventDefault();
       var form = $("#crear_inversion");
       let inputs = form.find(":input:not(:submit):not(button)");
-      let unidadValor = form.find("input[name='unidad']").val();
+      let unidadValor = form.find("select[name='unidad']").val();
       console.log(unidadValor);
 
       var telasList = [];

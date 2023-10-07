@@ -122,7 +122,9 @@
             data-bs-backdrop="static"
             data-bs-keyboard="false"
           >
-            <div class="modal-dialog modal-xl shadow-light">
+            <div
+              class="modal-dialog modal-xl shadow-light modal-fullscreen-xl-down"
+            >
               <div class="modal-content">
                 <div class="modal-header">
                   <h4 class="modal-title fs-5" id="exampleModalLabel">
@@ -143,18 +145,18 @@
                   <div class="modal-body">
                     <div id="update_account"></div>
                     <div class="row g-3">
-                      <div class="form-floating mb-2 col-md-6">
-                        <input
-                          class="form-control"
-                          id="materialUnit"
-                          type="text"
+                      <div
+                        class="col-xxl-2 col-xl-3 col-md-3 col-sm-4 col-re-2 mb-2"
+                      >
+                        <select
+                          class="form-select"
+                          aria-label="Default select example"
                           name="unidad"
-                          required
-                          placeholder="Nombre"
-                        />
-                        <label for="inputFirstName" class="no-top"
-                          >Unidad de material</label
+                          id="materialUnit"
                         >
+                          <option value="kilos">Kilos</option>
+                          <option value="metros">Metros</option>
+                        </select>
                       </div>
                     </div>
                     <div class="row pt-3">
@@ -182,7 +184,7 @@
                                   <th>Rendimiento</th>
                                   <th>Cantidad</th>
                                   <th>Costo</th>
-                                  <th class="tdaction">Action</th>
+                                  <th width="200px" class="tdaction">Action</th>
                                 </tr>
                               </thead>
                               <tbody></tbody>
@@ -203,7 +205,7 @@
                     <input
                       type="submit"
                       class="btn btn-success"
-                      value="Actualizar"
+                      value="Ingresar"
                     />
                   </div>
                 </form>

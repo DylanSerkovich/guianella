@@ -53,6 +53,8 @@ public class UserService {
             userRepositoryImpl.save(UserEntity.builder()
                     .idUser(user.getIdUser())
                     .username(user.getUsername())
+                    .firstName(user.getFirstName())
+                    .lastName(user.getLastName())
                     .email(user.getEmail())
                     .password(user.getPassword())
                     .enable(user.isEnable())

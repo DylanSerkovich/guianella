@@ -23,11 +23,6 @@ public class InversionService {
         @Autowired
         private UserMySQLRepository userMySQLRepository;
 
-        /*
-         * En la tabla Tela no se adjunta el id de la Inversion
-         * El Costo lo pone en 0
-         * El nombre del inversor aun no esta puesto
-         */
         public void saveInversion(InversionCreate inversion, String username) {
 
                 List<TelaEntity> telas = inversion.getTelas().stream()

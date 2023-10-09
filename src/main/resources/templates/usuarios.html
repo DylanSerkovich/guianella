@@ -114,7 +114,11 @@
                       </td>
                       <td th:text="${user.username}">Nombre Usuario</td>
                       <td th:text="${user.email}">Correo Usuario</td>
-                      <td th:text="${#dates.format(user.createDate, 'dd-MM-yyyy HH:mm')}">Correo Usuario</td>
+                      <td
+                        th:text="${#dates.format(user.createDate, 'dd-MM-yyyy HH:mm')}"
+                      >
+                        Correo Usuario
+                      </td>
                       <td>
                         <th:block th:if="${user.roles != null}">
                           <th:block th:each="rol : ${user.roles}">
@@ -138,7 +142,7 @@
                         <div class="d-flex justify-content-center h-100">
                           <div class="form-check form-switch fs-5">
                             <input
-                              class="form-check-input"
+                              class="user-status form-check-input"
                               type="checkbox"
                               id="flexSwitchCheckChecked"
                               th:attr="data-id=${user.idUser}"

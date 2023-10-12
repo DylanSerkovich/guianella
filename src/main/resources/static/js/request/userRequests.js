@@ -156,10 +156,12 @@ $(function () {
   
 
   $(document).ready(function () {
-    $("table input[type='checkbox']").change(function () {
+    $("table").on("change", ".user-status", function () {
       //var id = $(this).closest("tr").attr("id").split("-")[1];
       var id = $(this).attr("data-id");
       
+      console.log("Checkbox Seleccionado")
+
       var valor = $(this).is(":checked");
       $.ajax({
         url: `/usuarios/${id}/estado`,

@@ -60,12 +60,15 @@ public class InversionEntity {
     @OneToMany(mappedBy = "inversion", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<TelaEntity> telas = new ArrayList<>();
 
+    @OneToMany(mappedBy = "inversion", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProductEntity> productos = new ArrayList<>();
+
     /* Entidades | FK */
     @ManyToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id_user", nullable = true)
     private UserEntity user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_confection", referencedColumnName = "id_confection", nullable = true)
     private ConfectionEntity confection;
 
@@ -74,5 +77,4 @@ public class InversionEntity {
         dateRecord = new Date();
     }
 
-    
 }

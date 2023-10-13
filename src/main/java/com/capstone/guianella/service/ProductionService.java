@@ -14,6 +14,7 @@ import com.capstone.guianella.entity.InversionEntity;
 import com.capstone.guianella.entity.ProductEntity;
 import com.capstone.guianella.model.dto.NewProduction;
 import com.capstone.guianella.repository.InversionRepository;
+import com.capstone.guianella.repository.database.ConfeccionMySQLRepository;
 import com.capstone.guianella.repository.database.InversionMySQLRepository;
 import com.capstone.guianella.repository.database.ProductionMySQLRepository;
 
@@ -21,7 +22,7 @@ import com.capstone.guianella.repository.database.ProductionMySQLRepository;
 public class ProductionService {
 
     @Autowired
-    private InversionRepository inversionRepository;
+    private ConfeccionMySQLRepository confeccionMySQLRepository;
 
     @Autowired
     private InversionMySQLRepository inversionMySQLRepository;
@@ -31,11 +32,11 @@ public class ProductionService {
 
     public void saveProductionConfección(int idInversion, NewProduction production) {
         // InversionEntity inversionEntity =
-        // inversionMySQLRepository.findById(idInversion).orElse(null);
 
         Optional<InversionEntity> iOptional = inversionMySQLRepository.findById(idInversion);
         if (iOptional.isPresent()) {
             InversionEntity inversionEntity = iOptional.orElse(null);
+            System.out.println("id: " + inversionEntity.getIdInversion());
 
             List<ProductEntity> productions = production.getProducts().stream()
                     .map(product -> ProductEntity.builder()
@@ -44,9 +45,11 @@ public class ProductionService {
                             .priceUnitary(product.getPrecioU())
                             .build())
                     .collect(Collectors.toList());
-            // productions.forEach(product -> {
-            // System.out.println("Model: " + product.getModel());
-            // });
+
+            productions.forEach(product -> product.setInversion(inversionEntity));
+
+            productionMySQLRepository.saveAll(productions);
+
             ConfectionEntity confectionEntity = ConfectionEntity.builder()
                     .costPerbutton(new BigDecimal(production.getConfeccion().getCostBoton()))
                     .servicePole(new BigDecimal(production.getConfeccion().getServicePolo()))
@@ -54,11 +57,16 @@ public class ProductionService {
                     .serviceCuttape(new BigDecimal(production.getConfeccion().getServiceCortacinta()))
                     .build();
 
-            inversionEntity.setProductos(productions);
-            inversionEntity.getProductos().forEach(prod -> prod.setInversion(inversionEntity));
-            inversionEntity.setConfection(confectionEntity);
-            inversionEntity.getConfection().setInversion(inversionEntity);
-            inversionEntity.setDateComplete(new Date());
+            ConfectionEntity confectionEntity2= confeccionMySQLRepository.save(confectionEntity);
+
+            inversionMySQLRepository.updateConfeccionDateTerminate(idInversion, confectionEntity2.getIdConfection(), new Date());
+
+            // inversionEntity.setProductos(productions);
+            // inversionEntity.getProductos().forEach(prod ->
+            // prod.setInversion(inversionEntity));
+            // inversionEntity.setConfection(confectionEntity);
+            // inversionEntity.getConfection().setInversion(inversionEntity);
+            // inversionEntity.setDateComplete(new Date());
 
             // inversionMySQLRepository.save(inversionEntity);
         }

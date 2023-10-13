@@ -39,8 +39,8 @@ $(document).ready(function(){
           type: "POST",
           data: JSON.stringify(NewProduction),
           success: function (res){
-            //localStorage.setItem("Status", "¡Nueva Produccion Registrada!");
-            //window.location.reload();
+            localStorage.setItem("Status", "¡Nueva Produccion Registrada!");
+            window.location.reload();
           }
         })
         

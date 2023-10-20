@@ -66,4 +66,10 @@ public class ConfectionEntity {
     
     @OneToOne(mappedBy = "confection", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private InversionEntity inversion;
+
+    public void setInversion(InversionEntity inversion) {
+        this.inversion = inversion;
+    }
+
+    
 }

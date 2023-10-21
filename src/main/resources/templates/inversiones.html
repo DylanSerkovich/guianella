@@ -101,18 +101,216 @@
                       th:id="'row-' + ${inversion.idInversion}"
                     >
                       <td th:text="${inversion.idInversion}"></td>
-                      <td th:text="${inversion.nameInvestor}"></td>
+                      <td th:text="${inversion.nameInversor}"></td>
                       <td th:text="${inversion.dateRecord}"></td>
-                      <td>null</td>
-                      <td>null</td>
-                      <td>null</td>
+                      <td>
+                        <button
+                          type="button"
+                          class="btn btn-light"
+                          th:onclick="findCostRecord([[${inversion.idInversion}]])"
+                          th:text="${inversion.cost}"
+                        ></button>
+                      </td>
+                      <td>
+                        <button
+                          type="button"
+                          class="btn btn-light"
+                          th:onclick="findIngresosRecord([[${inversion.idInversion}]])"
+                          th:text="${inversion.ingresos}"
+                        ></button>
+                      </td>
+                      <td th:text="${inversion.ingresos-inversion.cost}">
+                        null
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
+          <div
+            class="modal fade"
+            id="FindIngresos"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-xl shadow-light modal-fullscreen-xl-down"
+            >
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title fs-5" id="exampleModalLabel">
+                    Datos de Ingresos
+                  </h4>
+                  <button
+                    type="button"
+                    class="btn-close btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row pt-3">
+                    <div class="container">
+                      <div class="row pt-1">
+                        <div class="col-16 table-responsive">
+                          <table
+                            id="table-producto"
+                            class="table table-bordered table-hover table-striped"
+                            style="min-width: 580px !important"
+                          >
+                            <thead>
+                              <tr>
+                                <th>Modelo</th>
+                                <th>Cantidad</th>
+                                <th>Precio/U</th>
+                                <th>SubTotal</th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div>Total: <span id="totalIngresos"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="modal fade"
+            id="FindCost"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-xl shadow-light modal-fullscreen-xl-down"
+            >
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title fs-5" id="exampleModalLabel">
+                    Datos de Costo
+                  </h4>
+                  <button
+                    type="button"
+                    class="btn-close btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                      <h2
+                        class="accordion-header"
+                        id="panelsStayOpen-headingOne"
+                      >
+                        <button
+                          class="accordion-button"
+                          type="button"
+                          id="totalCostTelaTitle"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#panelsStayOpen-collapseOne"
+                          aria-expanded="true"
+                          aria-controls="panelsStayOpen-collapseOne"
+                        >
+                          Datos de tela
+                        </button>
+                      </h2>
+                      <div
+                        id="panelsStayOpen-collapseOne"
+                        class="accordion-collapse collapse show"
+                        aria-labelledby="panelsStayOpen-headingOne"
+                      >
+                        <div class="accordion-body">
+                          <div class="row pt-3">
+                            <div class="container">
+                              <div class="row pt-1">
+                                <div class="col-16 table-responsive">
+                                  <table
+                                    id="table-tela"
+                                    class="table table-bordered table-hover table-striped"
+                                    style="min-width: 580px !important"
+                                  >
+                                    <thead>
+                                      <tr>
+                                        <th>Tipo</th>
+                                        <th>Color</th>
+                                        <th>Rendimiento</th>
+                                        <th>Cantidad</th>
+                                        <th>Costo</th>
+                                        <th>SubTotal</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div>Total: <span id="totalCostTela"></span></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2
+                        class="accordion-header"
+                        id="panelsStayOpen-headingTwo"
+                      >
+                        <button
+                          class="accordion-button collapsed"
+                          type="button"
+                          id="totalCostConfeccionTitle"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#panelsStayOpen-collapseTwo"
+                          aria-expanded="false"
+                          aria-controls="panelsStayOpen-collapseTwo"
+                        >
+                          Datos de Confeccion
+                        </button>
+                      </h2>
+                      <div
+                        id="panelsStayOpen-collapseTwo"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingTwo"
+                      >
+                        <div class="accordion-body">
+                          <div class="row">
+                            <div>
+                              Costo servicio total:
+                              <span id="servicioTotalPolo"></span>
+                            </div>
+                            <div>
+                              Servicio Cortacinta:
+                              <span id="servicioCortacinta"></span>
+                            </div>
+                            <div>
+                              Servicio Boton: <span id="servicioBoton"></span>
+                            </div>
+                            <div>
+                              Costo Boton: <span id="costoBoton"></span>
+                            </div>
 
+                            <div>
+                              Costo Total Confeccion:
+                              <span id="costoTotalConfeccion"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div
             class="modal fade"
             id="CreateModal"

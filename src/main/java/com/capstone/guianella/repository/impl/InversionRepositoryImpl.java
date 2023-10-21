@@ -1,5 +1,8 @@
 package com.capstone.guianella.repository.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
 import com.capstone.guianella.entity.InversionEntity;
@@ -17,6 +20,16 @@ public class InversionRepositoryImpl implements InversionRepository {
     @Override
     public InversionEntity save(InversionEntity inversionEntity) {
         return repository.save(inversionEntity);
+    }
+
+    @Override
+    public List<InversionEntity> findAllInversion() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<InversionEntity> findByInversion(int id) {
+        return repository.findById(id);
     }
 
 }

@@ -32,4 +32,14 @@ public class InversionRepositoryImpl implements InversionRepository {
         return repository.findById(id);
     }
 
+    @Override
+    public List<InversionEntity> findAllNoTerminate() {
+       return repository.findAllNoTerminate();
+    }
+
+    @Override
+    public List<InversionEntity> findAllTerminate() {
+       return repository.findAllTerminate();
+    }
+
 }

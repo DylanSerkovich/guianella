@@ -19,6 +19,9 @@ public interface InversionMySQLRepository extends JpaRepository<InversionEntity,
         @Query(value = "SELECT * FROM inversion WHERE date_complete IS NULL", nativeQuery = true)
         List<InversionEntity> findAllNoTerminate();
 
+        @Query(value = "SELECT * FROM inversion WHERE date_complete IS NOT NULL", nativeQuery = true)
+        List<InversionEntity> findAllTerminate();
+
         @Modifying
         @Transactional
         @Query(value = "UPDATE inversion " +

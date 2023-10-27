@@ -33,7 +33,7 @@ public class ConfigAdmin {
 
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/", "/usuarios/**").hasAnyAuthority("ADMIN", "EMPLEADOS", "INVERSORES");
-                    auth.requestMatchers("/inversiones/**","/produccion/**").hasAnyAuthority("INVERSORES");
+                    auth.requestMatchers("/inversiones/**", "/produccion/**").hasAnyAuthority("INVERSORES");
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(formLogin -> formLogin

@@ -11,5 +11,9 @@ public interface InversionRepository {
 
     List<InversionEntity> findAllInversion();
 
+    List<InversionEntity> findAllNoTerminate();
+
+    List<InversionEntity> findAllTerminate();
+
     Optional<InversionEntity> findByInversion(int id);
 }

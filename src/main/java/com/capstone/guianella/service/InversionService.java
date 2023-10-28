@@ -65,8 +65,8 @@ public class InversionService {
                 inversionRepository.save(inversionEntity);
         }
 
-        public List<FindInversion> listInversion() {
-                List<InversionEntity> inversionEntities = inversionRepository.findAllInversion();
+        public List<FindInversion> listInversionTerminate() {
+                List<InversionEntity> inversionEntities = inversionRepository.findAllTerminate();
                 List<FindInversion> inversions = inversionEntities.stream()
                                 .map(inver -> FindInversion.builder()
                                                 .idInversion(inver.getIdInversion())
@@ -75,6 +75,20 @@ public class InversionService {
                                                 .cost(calculeCostTotal(inver.getTelas(), inver.getConfection(),
                                                                 inver.getProductos()))
                                                 .ingresos(calculeIngresos(inver.getProductos()))
+                                                .build())
+                                .collect(Collectors.toList());
+                return inversions;
+        }
+
+        public List<FindInversion> listInversionNotTerminate() {
+                List<InversionEntity> inversionEntities = inversionRepository.findAllNoTerminate();
+                List<FindInversion> inversions = inversionEntities.stream()
+                                .map(inver -> FindInversion.builder()
+                                                .idInversion(inver.getIdInversion())
+                                                .nameInversor(inver.getNameInvestor())
+                                                .dateRecord(inver.getDateRecord())
+                                                .cost(calculeCostTotal(inver.getTelas(), inver.getConfection(),
+                                                                inver.getProductos()))
                                                 .build())
                                 .collect(Collectors.toList());
                 return inversions;

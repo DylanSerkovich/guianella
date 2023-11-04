@@ -31,7 +31,9 @@ public class InvestmentController {
     @GetMapping
     public String viewInvestmentTemplate(Model model) {
 
-        model.addAttribute("inversiones", inversionService.listInversionNotTerminate());
+        // model.addAttribute("inversiones",
+        // inversionMySQLRepository.findAllTerminateProjection());
+        model.addAttribute("inversiones", inversionMySQLRepository.findAllNotTerminateProjection());
 
         return "inversiones";
     }

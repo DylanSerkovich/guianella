@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.capstone.guianella.entity.InversionEntity;
+import com.capstone.guianella.projections.InversionProjection;
+import com.capstone.guianella.projections.InversionTerminateProjection;
 import com.capstone.guianella.repository.InversionRepository;
 import com.capstone.guianella.repository.database.InversionMySQLRepository;
 
@@ -34,12 +36,22 @@ public class InversionRepositoryImpl implements InversionRepository {
 
     @Override
     public List<InversionEntity> findAllNoTerminate() {
-       return repository.findAllNoTerminate();
+        return repository.findAllNoTerminate();
     }
 
     @Override
     public List<InversionEntity> findAllTerminate() {
-       return repository.findAllTerminate();
+        return repository.findAllTerminate();
+    }
+
+    @Override
+    public List<InversionProjection> findAllNoTerminateProjection() {
+        return repository.findAllNotTerminateProjection();
+    }
+
+    @Override
+    public List<InversionTerminateProjection> findAllTerminateProjection() {
+        return repository.findAllTerminateProjection();
     }
 
 }

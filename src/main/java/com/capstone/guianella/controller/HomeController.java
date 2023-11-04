@@ -19,7 +19,7 @@ public class HomeController {
     @GetMapping("/")
     public String goHome(Model model) {
 
-        model.addAttribute("inversiones", inversionService.listInversionTerminate());
+        model.addAttribute("inversiones", inversionService.getInversionTerminate());
 
         return "index";
     }

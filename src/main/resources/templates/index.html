@@ -83,7 +83,7 @@
                       th:id="'row-' + ${inversion.idInversion}"
                     >
                       <td th:text="${inversion.idInversion}"></td>
-                      <td th:text="${inversion.nameInversor}"></td>
+                      <td th:text="${inversion.nameInvestor}"></td>
                       <td
                         th:text="${#dates.format(inversion.dateRecord, 'yyyy-MM-dd')}"
                       ></td>
@@ -93,7 +93,7 @@
                           type="button"
                           class="btn btn-light"
                           th:onclick="findCostRecord([[${inversion.idInversion}]])"
-                          th:text="${inversion.cost}"
+                          th:text="${inversion.costoTelaConfeccion}"
                         ></button>
                       </td>
                       <td>
@@ -104,7 +104,9 @@
                           th:text="${inversion.ingresos}"
                         ></button>
                       </td>
-                      <td th:text="${inversion.ingresos-inversion.cost}">
+                      <td
+                        th:text="${inversion.ingresos-inversion.costoTelaConfeccion}"
+                      >
                         null
                       </td>
                     </tr>

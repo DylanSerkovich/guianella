@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.guianella.entity.InversionEntity;
+import com.capstone.guianella.projections.InversionProjection;
+import com.capstone.guianella.projections.InversionTerminateProjection;
 
 @Repository
 public interface InversionMySQLRepository extends JpaRepository<InversionEntity, Integer> {
@@ -21,6 +23,37 @@ public interface InversionMySQLRepository extends JpaRepository<InversionEntity,
 
         @Query(value = "SELECT * FROM inversion WHERE date_complete IS NOT NULL", nativeQuery = true)
         List<InversionEntity> findAllTerminate();
+
+        @Query(value = "SELECT i.id_inversion AS idInversion, i.name_investor AS nameInvestor, i.date_record AS dateRecord, ROUND(SUM(t.lot * t.cost), 2) AS costoTela "
+                        +
+                        "FROM inversion i " +
+                        "LEFT JOIN tela t " +
+                        "ON i.id_inversion = t.id_inversion " +
+                        "WHERE i.date_complete IS NULL " +
+                        "GROUP BY i.id_inversion, i.name_investor", nativeQuery = true)
+        List<InversionProjection> findAllNotTerminateProjection();
+
+        @Query(value = """
+                        SELECT
+                        i.id_inversion AS idInversion,
+                        i.name_investor AS nameInvestor,
+                        i.date_record AS dateRecord,
+                        (SELECT IFNULL(SUM(t.lot * t.cost), 0)
+                        FROM tela t
+                        WHERE t.id_inversion = i.id_inversion) AS costoTela,
+                        (SELECT IFNULL(SUM(p.lot), 0)
+                        FROM product p
+                        WHERE p.id_inversion = i.id_inversion) AS lotProduction,
+                        IFNULL(c.service_pole, 0) AS servicePole,
+                        IFNULL((c.cost_perbutton + c.service_button + c.service_cuttape), 0) AS confeccionAddCost,
+                        (SELECT IFNULL(SUM(p.lot * p.price_unitary), 0)
+                        FROM product p
+                        WHERE p.id_inversion = i.id_inversion) AS ingresos
+                        FROM inversion i
+                        LEFT JOIN confection c ON i.id_confection = c.id_confection
+                        WHERE i.date_complete IS NOT NULL;
+                        """, nativeQuery = true)
+        List<InversionTerminateProjection> findAllTerminateProjection();
 
         @Modifying
         @Transactional

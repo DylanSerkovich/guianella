@@ -23,6 +23,7 @@ import com.capstone.guianella.model.dto.FindInversion;
 import com.capstone.guianella.model.dto.InversionCreate;
 import com.capstone.guianella.model.dto.Product;
 import com.capstone.guianella.model.dto.Tela;
+import com.capstone.guianella.projections.InversionTerminateProjection;
 import com.capstone.guianella.repository.InversionRepository;
 import com.capstone.guianella.repository.database.ProductionMySQLRepository;
 import com.capstone.guianella.repository.database.UserMySQLRepository;
@@ -65,34 +66,40 @@ public class InversionService {
                 inversionRepository.save(inversionEntity);
         }
 
-        public List<FindInversion> listInversionTerminate() {
-                List<InversionEntity> inversionEntities = inversionRepository.findAllTerminate();
-                List<FindInversion> inversions = inversionEntities.stream()
-                                .map(inver -> FindInversion.builder()
-                                                .idInversion(inver.getIdInversion())
-                                                .nameInversor(inver.getNameInvestor())
-                                                .dateRecord(inver.getDateRecord())
-                                                .cost(calculeCostTotal(inver.getTelas(), inver.getConfection(),
-                                                                inver.getProductos()))
-                                                .ingresos(calculeIngresos(inver.getProductos()))
-                                                .build())
-                                .collect(Collectors.toList());
-                return inversions;
+        public List<InversionTerminateProjection> getInversionTerminate() {
+                return inversionRepository.findAllTerminateProjection();
         }
 
-        public List<FindInversion> listInversionNotTerminate() {
-                List<InversionEntity> inversionEntities = inversionRepository.findAllNoTerminate();
-                List<FindInversion> inversions = inversionEntities.stream()
-                                .map(inver -> FindInversion.builder()
-                                                .idInversion(inver.getIdInversion())
-                                                .nameInversor(inver.getNameInvestor())
-                                                .dateRecord(inver.getDateRecord())
-                                                .cost(calculeCostTotal(inver.getTelas(), inver.getConfection(),
-                                                                inver.getProductos()))
-                                                .build())
-                                .collect(Collectors.toList());
-                return inversions;
-        }
+        // public List<FindInversion> listInversionTerminate() {
+        // List<InversionEntity> inversionEntities =
+        // inversionRepository.findAllTerminate();
+        // List<FindInversion> inversions = inversionEntities.stream()
+        // .map(inver -> FindInversion.builder()
+        // .idInversion(inver.getIdInversion())
+        // .nameInversor(inver.getNameInvestor())
+        // .dateRecord(inver.getDateRecord())
+        // .cost(calculeCostTotal(inver.getTelas(), inver.getConfection(),
+        // inver.getProductos()))
+        // .ingresos(calculeIngresos(inver.getProductos()))
+        // .build())
+        // .collect(Collectors.toList());
+        // return inversions;
+        // }
+
+        // public List<FindInversion> listInversionNotTerminate() {
+        // List<InversionEntity> inversionEntities =
+        // inversionRepository.findAllNoTerminate();
+        // List<FindInversion> inversions = inversionEntities.stream()
+        // .map(inver -> FindInversion.builder()
+        // .idInversion(inver.getIdInversion())
+        // .nameInversor(inver.getNameInvestor())
+        // .dateRecord(inver.getDateRecord())
+        // .cost(calculeCostTotal(inver.getTelas(), inver.getConfection(),
+        // inver.getProductos()))
+        // .build())
+        // .collect(Collectors.toList());
+        // return inversions;
+        // }
 
         private BigDecimal calculeIngresos(List<ProductEntity> produces) {
                 return produces.stream()

@@ -5,7 +5,7 @@
   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 >
   <head>
-    <title>Registro/Usuarios</title>
+    <title>Registro/Nuevas Inversiones</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -81,8 +81,6 @@
                       <th>INVERSOR</th>
                       <th>FECHA REG</th>
                       <th>GASTO/INV</th>
-                      <th>INGRESOS</th>
-                      <th>GANANCIAS</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -91,8 +89,6 @@
                       <th>INVERSOR</th>
                       <th>FECHA REG</th>
                       <th>GASTO/INV</th>
-                      <th>INGRESOS</th>
-                      <th>GANANCIAS</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -101,26 +97,15 @@
                       th:id="'row-' + ${inversion.idInversion}"
                     >
                       <td th:text="${inversion.idInversion}"></td>
-                      <td th:text="${inversion.nameInversor}"></td>
+                      <td th:text="${inversion.nameInvestor}"></td>
                       <td th:text="${inversion.dateRecord}"></td>
                       <td>
                         <button
                           type="button"
                           class="btn btn-light"
                           th:onclick="findCostRecord([[${inversion.idInversion}]])"
-                          th:text="${inversion.cost}"
+                          th:text="${inversion.costoTela}"
                         ></button>
-                      </td>
-                      <td>
-                        <button
-                          type="button"
-                          class="btn btn-light"
-                          th:onclick="findIngresosRecord([[${inversion.idInversion}]])"
-                          th:text="${inversion.ingresos}"
-                        ></button>
-                      </td>
-                      <td th:text="${inversion.ingresos-inversion.cost}">
-                        null
                       </td>
                     </tr>
                   </tbody>

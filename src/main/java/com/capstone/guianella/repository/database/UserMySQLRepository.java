@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.capstone.guianella.entity.UserEntity;
+import com.capstone.guianella.projections.CountUserRol;
 
 public interface UserMySQLRepository extends JpaRepository<UserEntity, Integer> {
 
@@ -21,6 +22,15 @@ public interface UserMySQLRepository extends JpaRepository<UserEntity, Integer> 
 
         @Query(value = "SELECT * FROM user WHERE reset_password_token = ?1", nativeQuery = true)
         public UserEntity finByResetPasswordToken(String token);
+
+        @Query(value = """
+                        SELECT r.name AS rolName, COUNT(ur.id_user) AS numUser
+                        FROM rol r
+                        LEFT JOIN user_rol ur ON r.rol_id = ur.rol_id
+                        WHERE r.name != 'ADMIN'
+                        GROUP BY r.rol_id;
+                                """, nativeQuery = true)
+        List<CountUserRol> findCountUserRoles();
 
         @Query(value = "SELECT u.* FROM user u " +
                         "INNER JOIN user_rol ur ON u.id_user = ur.id_user " +

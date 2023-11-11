@@ -1,5 +1,7 @@
 package com.capstone.guianella.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.capstone.guianella.model.dto.FindCost;
 import com.capstone.guianella.model.dto.FindIngresos;
+import com.capstone.guianella.model.dto.GananciaMes;
+import com.capstone.guianella.model.dto.Ganancias;
 import com.capstone.guianella.model.dto.InversionCreate;
 import com.capstone.guianella.repository.database.InversionMySQLRepository;
 import com.capstone.guianella.repository.impl.CustomUserDetails;
@@ -58,5 +62,12 @@ public class InvestmentController {
     @GetMapping("/{id}/ingresos")
     public ResponseEntity<FindIngresos> findIngresosInversion(@PathVariable("id") int id) {
         return ResponseEntity.ok(inversionService.findIngresos(id));
+    }
+
+    @GetMapping("/ganancias")
+    public ResponseEntity<Ganancias> findGananciasMes() {
+        Ganancias ganancias = new Ganancias(
+                inversionService.calcularGananciasPorMes(inversionMySQLRepository.findAllTerminateDateProjection()));
+        return ResponseEntity.ok(ganancias);
     }
 }

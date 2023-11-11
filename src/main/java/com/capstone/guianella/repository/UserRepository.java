@@ -2,9 +2,8 @@ package com.capstone.guianella.repository;
 
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
-
 import com.capstone.guianella.entity.UserEntity;
+import com.capstone.guianella.projections.CountUserRol;
 
 public interface UserRepository {
     void save(UserEntity user);
@@ -18,6 +17,8 @@ public interface UserRepository {
     List<UserEntity> findAll();
 
     UserEntity findByEmailOrUsername(String email, String username);
+
+    List<CountUserRol> findCountUserRols();
 
     UserEntity existsByEmailOrUsernameAndDifferentId(String email, String username, int id);
 

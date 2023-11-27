@@ -15,6 +15,7 @@ import com.capstone.guianella.entity.RolEntity;
 import com.capstone.guianella.entity.UserEntity;
 import com.capstone.guianella.exception.UserNotFoundException;
 import com.capstone.guianella.model.dto.FindUser;
+import com.capstone.guianella.model.dto.NumberUser;
 import com.capstone.guianella.model.dto.Rol;
 import com.capstone.guianella.model.dto.UserCreate;
 import com.capstone.guianella.repository.database.RolMySQLReporsitory;
@@ -66,6 +67,10 @@ public class UserService {
         } else {
             throw new UserNotFoundException("No se pudo encontrar ningún cliente con el correo electrónico. " + email);
         }
+    }
+
+    public NumberUser findNumberUser(){
+        return new NumberUser(userRepositoryImpl.findCountUserRols());
     }
 
     public void setResetPasswordToken(String token) throws UserNotFoundException {

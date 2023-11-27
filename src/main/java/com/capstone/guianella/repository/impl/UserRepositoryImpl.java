@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.guianella.entity.UserEntity;
-
+import com.capstone.guianella.projections.CountUserRol;
 import com.capstone.guianella.repository.UserRepository;
 import com.capstone.guianella.repository.database.UserMySQLRepository;
 
@@ -69,6 +69,11 @@ public class UserRepositoryImpl implements UserRepository {
         Optional<UserEntity> usOptional = userRepository.existsByEmailOrUsernameAndDifferentId(email, username, id);
 
         return usOptional.orElse(null);
+    }
+
+    @Override
+    public List<CountUserRol> findCountUserRols() {
+        return userRepository.findCountUserRoles();
     }
 
 }

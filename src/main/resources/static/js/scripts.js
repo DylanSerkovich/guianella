@@ -14,6 +14,15 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 
 
+function validarNumero(input) {
+  // Permite solo números enteros o decimales
+  input.value = input.value.replace(/[^0-9.]/g, '');
+
+  // Asegúrate de que no haya más de un punto decimal
+  input.value = input.value.replace(/(\..*)\./g, '$1');
+  input.value = input.value.replace(/(\.\d\d)\d+$/g, '$1'); // Limita a dos dígitos decimales
+}
+
 (function () {
     'use strict'
 

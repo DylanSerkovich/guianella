@@ -2,10 +2,16 @@ package com.capstone.guianella.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +25,11 @@ import com.capstone.guianella.entity.UserEntity;
 import com.capstone.guianella.model.dto.Confeccion;
 import com.capstone.guianella.model.dto.FindCost;
 import com.capstone.guianella.model.dto.FindIngresos;
-import com.capstone.guianella.model.dto.FindInversion;
+import com.capstone.guianella.model.dto.GananciaMes;
 import com.capstone.guianella.model.dto.InversionCreate;
 import com.capstone.guianella.model.dto.Product;
 import com.capstone.guianella.model.dto.Tela;
+import com.capstone.guianella.projections.InversionDateProjection;
 import com.capstone.guianella.projections.InversionTerminateProjection;
 import com.capstone.guianella.repository.InversionRepository;
 import com.capstone.guianella.repository.database.ProductionMySQLRepository;
@@ -69,6 +76,34 @@ public class InversionService {
         public List<InversionTerminateProjection> getInversionTerminate() {
                 return inversionRepository.findAllTerminateProjection();
         }
+
+        public List<GananciaMes> calcularGananciasPorMes(List<InversionDateProjection> inversiones) {
+                Map<Month, BigDecimal> gananciasPorMes = new TreeMap<>();
+
+                for (InversionDateProjection inversion : inversiones) {
+                        LocalDate fecha = inversion.getDateRecord().toInstant().atZone(ZoneId.systemDefault())
+                                        .toLocalDate();
+                        int year = fecha.getYear();
+                        int monthValue = fecha.getMonthValue();
+                        Month mes = Month.of(monthValue);
+
+                        BigDecimal ingresos = inversion.getIngresos();
+                        BigDecimal costoTelaConfeccion = inversion.getCostoTelaConfeccion();
+                        BigDecimal ganancia = ingresos.subtract(costoTelaConfeccion);
+
+                        // Solo considera las inversiones del año actual
+                        if (year == LocalDate.now().getYear()) {
+                                // Agrupa las ganancias por mes
+                                gananciasPorMes.merge(mes, ganancia, BigDecimal::add);
+                        }
+                }
+                List<GananciaMes> listaGanancias = new ArrayList<>();
+                gananciasPorMes.forEach((mes, ganancia) ->
+                         listaGanancias.add(new GananciaMes(mes, ganancia)));
+
+                return listaGanancias;
+        }
+
 
         // public List<FindInversion> listInversionTerminate() {
         // List<InversionEntity> inversionEntities =

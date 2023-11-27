@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.capstone.guianella.model.dto.FindUser;
+import com.capstone.guianella.model.dto.NumberUser;
 import com.capstone.guianella.model.dto.UserCreate;
 import com.capstone.guianella.model.response.ResponseUserCreate;
 import com.capstone.guianella.repository.impl.UserRepositoryImpl;
@@ -77,6 +78,11 @@ public class UserController {
         System.out.println("Id= " + user_id);
         // return ResponseEntity.ok().build();
         return ResponseEntity.ok(userService.findUserById(user_id));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<NumberUser> findUsersCount() {
+        return ResponseEntity.ok(userService.findNumberUser());
     }
 
     @PutMapping("/{id}/usuario")

@@ -43,7 +43,7 @@ $(document).ready(function(){
 
         console.log("Cantidad: "+cantidadPolos);
 
-        let costos = costoPorTrazo + servicioTotal + collereta;
+        let costos = parseFloat(costoPorTrazo) + parseFloat(servicioTotal) + parseFloat(collereta);
 
         console.log("Costos: " + costos);
         console.log("Ventas: " + ventasModelos);
